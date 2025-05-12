@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/picsart.py", "use": "@vercel/python" }
+  ],
+  "routes": [
+    { "src": "/api/picsart", "dest": "api/picsart.py" },
+    { "src": "/(.*)", "dest": "/public/index.html" }
+  ]
+}
