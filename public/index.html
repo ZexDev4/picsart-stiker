@@ -32,6 +32,7 @@
       max-height: 180px;
       object-fit: contain;
       padding: 10px;
+      background-color: #f0f0f0;
     }
     .btn-download {
       background-color: #198754;
@@ -114,7 +115,10 @@
           imageCard.className = 'col-6 col-md-4 col-lg-3 mb-4';
           imageCard.innerHTML = `
             <div class="card h-100">
-              <img src="${item.url}" alt="${item.title}" class="card-img-top" loading="lazy"/>
+              <picture>
+                <source srcset="${item.url}" type="image/webp">
+                <img src="${item.url}" alt="${item.title}" class="card-img-top" loading="lazy"/>
+              </picture>
               <div class="card-body text-center">
                 <button class="btn btn-download btn-sm" onclick="downloadImage('${item.url}', '${item.title}')">
                   <i class="fas fa-download me-1"></i>Download
@@ -137,7 +141,7 @@
 
     async function downloadImage(imageUrl, title = 'sticker') {
       try {
-        const response = await fetch(imageUrl, { mode: 'cors' });
+        const response = await fetch(imageUrl, { mode: 'cors', cache: 'force-cache' });
         const blob = await response.blob();
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
